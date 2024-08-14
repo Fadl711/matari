@@ -19,7 +19,7 @@
    @auth
 
 
-   @if(Auth::user()->usertype=="admin" or "admin2")
+   @if((Auth::user()->usertype=='admin2')or(Auth::user()->usertype=='admin'))
     <div class="flex">
         <form class=""  method="POST" action="{{route('posts.destroy',$pos->id)}}">
             @csrf

@@ -22,7 +22,7 @@ Route::get('/posts/{post}/show',[SectionController::class,'show'])->name('posts.
 Route::post('store',[PostCoctroller::class,'storeUser'])->name('store.user');
 Route::get('/search',[SearchController::class,'search'])->name('search');
 
-Route::middleware(['auth','admin2','admin'])->group(function () {
+Route::middleware(['auth','admin'])->group(function () {
 
     Route::delete('/posts/{post}',[PostCoctroller::class,'destroy'])->name('posts.destroy');
     Route::get('/posts/{post}/edit',[PostCoctroller::class,'edit'])->name("posts.edit");
@@ -32,7 +32,7 @@ Route::middleware(['auth','admin2','admin'])->group(function () {
 });
 Route::post('users/{id}',[UserController::class,'update'])->name('user.edit');
 
-Route::middleware(['auth','admin'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     Route::get('/posts6',function(){
         return view('posts.show_users');
     })->name('posts.store');

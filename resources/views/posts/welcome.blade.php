@@ -7,14 +7,14 @@
 @auth
 
 <br>
-@if(Auth::user()->usertype=="admin" or "admin2")
-@if (Auth::user()->usertype=='admin')
 
-<a href="{{route('dashboard')}}"  class="p-5 px-8 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
-    لوحة التحكم</a>
-@endif
+@if ((Auth::user()->usertype=='admin2')or(Auth::user()->usertype=='admin'))
 <a href="{{route('Control.create')}}"  class=" px-8 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
     اضافة منشور</a>
+
+    <a href="{{route('dashboard')}}"  class="p-5 px-8 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+        لوحة التحكم</a>
+
     @endif
     @endauth
 
@@ -62,7 +62,7 @@ style="enable-background:new 0 0 455.005 455.005;" xml:space="preserve">
     @Auth
 
 
-    @if(Auth::User()->usertype=='admin'or 'admin2')
+    @if((Auth::user()->usertype=='admin2')or(Auth::user()->usertype=='admin'))
 <div class="flex">
     <form class=""  method="POST" action="{{route('posts.destroy',$r->id)}}">
         @csrf
