@@ -11,7 +11,7 @@
 
     <select id="states" name="typeSection" class="cx bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-e-lg border-s-gray-100 dark:border-s-gray-700 border-s-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
-        @foreach($posts as $post)
+        @foreach($section as $post)
     <option  @selected ($posts3->idsection == $post->id) value="{{$post->id}}">{{$post->section_Name}}</option>
 
 

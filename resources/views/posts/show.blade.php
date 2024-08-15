@@ -1,19 +1,15 @@
 @extends("layout")
 @section('title')
-{{ $pos->titleart }}
+{{ $posts->titleart }}
 @endsection
 @section('content')
-{{-- {!!'<h1>test</h1>'!!}  --}}
-
-{{-- @if($pos->titleart!=NULL)
-@endif --}}
 
 
 
 <div id="showbo " style="display: block">
 <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 relative ">
 
-  <h1 class=" underline underline-offset-4 font-medium text-center my-2" name="post_id">{{$pos->id}} </h1>
+  <h1 class=" underline underline-offset-4 font-medium text-center my-2" name="post_id">{{$posts->id}} </h1>
   <div class=" bg-cover bg-center text-center overflow-hidden">
     {{-- <video src="{{url('book/1722181714.mp4')}}" controls ></video> --}}
    @auth
@@ -21,32 +17,40 @@
 
    @if((Auth::user()->usertype=='admin2')or(Auth::user()->usertype=='admin'))
     <div class="flex">
-        <form class=""  method="POST" action="{{route('posts.destroy',$pos->id)}}">
+        <form class=""  method="POST" action="{{route('posts.destroy',$posts->id)}}">
             @csrf
             @method('DELETE')
-            <button  type="submit" class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">حذف</button>
+            <button  type="submit" class="text-purple-700
+             hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4
+             focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5
+             py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400
+             dark:hover:text-white dark:hover:bg-purple-500
+              dark:focus:ring-purple-900">حذف</button>
           </form>
 
-        <a href="{{route('posts.edit',$pos->id)}}" class=" w-20 text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">تعديل</a>
+        <a href="{{route('posts.edit',$posts->id)}}" class="
+             w-20 text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">تعديل</a>
         </div>
     @endif
         @endauth
-    @if($pos->imgart!=NULL)
-    <img class=" mx-auto  place-content-center " style="min-height: 450px; "  width="800px" src="{{url('book/'.$pos->imgart.'')}}">
+    @if($posts->imgart!=NULL)
+    <img class=" mx-auto  place-content-center " style="min-height: 450px; "
+     width="800px" src="{{url('book/'.$posts->imgart.'')}}">
  @endif
 
   </div>
-  <div class="max-w-3xl mx-auto ">
+  <div class="max-w-3xl mx-auto border ">
     <div
-        class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-0 flex flex-col justify-between leading-normal">
+        class="mt-3 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-0 flex flex-col
+         justify-between leading-normal">
         <div class="bg-white relative top-0 -mt-32 p-5 sm:p-10">
-            <h1 href="#" class="text-gray-900 font-bold text-3xl mb-2"> {{$pos->titleart}}</h1>
+            <h1 href="#" class="text-gray-900 font-bold text-3xl mb-2"> {{$posts->titleart}}</h1>
 
             <p class="text-base leading-8 my-5">
-                {{$pos->body}}
+                {{$posts->body}}
             </p>
-@if ($pos->books!=NULL)
-<a href="{{url('book/'.$pos->books.'')}}" class="text-gray-900 mx-1 transition ease-in-out delay-150
+@if ($posts->books!=NULL)
+<a href="{{url('book/'.$posts->books.'')}}" class="text-gray-900 mx-1 transition ease-in-out delay-150
     hover:-translate-y-1 hover:scale-110  duration-300  bg-gray-200
      hover:bg-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center
       dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">تنزيل
@@ -56,29 +60,29 @@
 
 
 @endif
-             @if($pos->fileVid!=NULL)
+             @if($posts->fileVid!=NULL)
 
 
 
             <p class="text-base leading-8 my-5">
-              <video src="{{url('book/'.$pos->fileVid.'')}}" controls ></video>
+              <video src="{{url('book/'.$posts->fileVid.'')}}" controls ></video>
 
             </p>
             @endif
-            @if($pos->link_video!=NULL)
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$pos->link_video}}?si=eGefC7oFRFyf3bYx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            @if($posts->link_video!=NULL)
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$posts->link_video}}?si=eGefC7oFRFyf3bYx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 
 
             @endif
-            @if($pos->fileAud!=NULL)
+            @if($posts->fileAud!=NULL)
 
             <audio class=" md:w-[500px] w-72 my-5" controls>
-                <source  src="{{url('book/'.$pos->fileAud.'')}}"type="audio/mp3">
+                <source  src="{{url('book/'.$posts->fileAud.'')}}"type="audio/mp3">
               Your browser does not support the audio element.
               </audio>
 
-            <a href="{{url('book/'.$pos->fileAud.'')}}" class=" mt-5block w-32 text-gray-900 mx-1 transition ease-in-out delay-150
+            <a href="{{url('book/'.$posts->fileAud.'')}}" class=" mt-5block w-32 text-gray-900 mx-1 transition ease-in-out delay-150
                 hover:-translate-y-1 hover:scale-110  duration-300  bg-gray-200
                  hover:bg-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center
                   dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">تنزيل
@@ -89,10 +93,10 @@
 
 
             @endif
-@if(($pos->noteart ||$pos->linknote))
+@if(($posts->noteart ||$posts->linknote))
 
-<span>  {{$pos->noteart}}</span>
-<a href="{{$pos->linknote}}"
+<span>  {{$posts->noteart}}</span>
+<a href="{{$posts->linknote}}"
     class="text-xs text-indigo-600 font-medium hover:text-gray-900 transition duration-500 ease-in-out">
     < الرابط >
 </a>
@@ -102,7 +106,7 @@
 </div>
         <div class=" sm:flex   p-2  ">
             <div class=" inline-flex   shadow-sm sm:ml-5  bg-white rounded-full border border-gray-200 " role="group">
-             <form method="POST" action="{{route('store.show',$pos->id)}}" id="form1">
+             <form method="POST" action="{{route('store.show',$posts->id)}}" id="form1">
                 @csrf  {{--,$pos->id --}}
                 @auth
 
@@ -115,9 +119,9 @@
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19v0A1.5 1.5 0 0 0 7 17.5V11Zm6.5-1h4.915c.286 0 .372.014.626.15.254.135.472.332.637.572a1.874 1.874 0 0 1 .215 1.673l-2.098 6.4C17.538 19.52 17.368 20 16.12 20c-2.303 0-4.79-.943-6.67-1.475"/>
                 </svg>
-                @isset($op)
-@if ($op!=NULL)
-<span class="block">{{$op}}</span>
+                @isset($like)
+@if ($like!=NULL)
+<span class="block">{{$like}}</span>
 
 
 @else
@@ -149,7 +153,7 @@
 </div>
 {{-- ____________________________________________________________ --}}
     <div class="flex flex-col gap-5 m-3 ">
-        <form method="POST" action="{{route('store.comment',$pos->id)}}" id="fom1" >
+        <form method="POST" action="{{route('store.comment',$posts->id)}}" id="fom1" >
           @csrf
             @auth
 
@@ -190,7 +194,7 @@
         <!-- Comment Container -->
 
         <div class="overflow-y-scroll h-96">
-        @foreach ($al as $a)
+        @foreach ($comment as $com)
 
         <div class="border border-r-emerald-500">
             <div class="flex w-full justify-between border rounded-md">
@@ -212,7 +216,7 @@
                         </h3>
                     </div>
                     <p class="text-gray-600 mt-2">
-                        {{$a->comment}}
+                        {{$com->comment}}
                     </p>
 
                 </div>
