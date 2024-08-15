@@ -206,7 +206,7 @@
                         <h3 class="font-bold">
                             @foreach ($users as $user)
 
-                            @if ($a->user_id==$user->id)
+                            @if ($com->user_id==$user->id)
 
                             {{$user->name}}                            <br>
                             @endif

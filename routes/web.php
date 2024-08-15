@@ -34,7 +34,7 @@ Route::middleware(['auth','admin','admin2'])->group(function () {
 Route::middleware(['auth','admin'])->group(function () {
     Route::get('/posts6',function(){
         return view('posts.show_users');
-    })->name('posts.store');
+    })->name('show.users');
     Route::post('users/{id}',[UserController::class,'update'])->name('user.edit');
 
 });
