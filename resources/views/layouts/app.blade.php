@@ -24,6 +24,7 @@
 
             <!-- Page Content -->
             <main>
+                {{$slot}}
                 @auth
                     @if (Auth::user()->usertype=='admin')
 

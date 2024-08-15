@@ -116,8 +116,15 @@
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19v0A1.5 1.5 0 0 0 7 17.5V11Zm6.5-1h4.915c.286 0 .372.014.626.15.254.135.472.332.637.572a1.874 1.874 0 0 1 .215 1.673l-2.098 6.4C17.538 19.52 17.368 20 16.12 20c-2.303 0-4.79-.943-6.67-1.475"/>
                 </svg>
                 @isset($op)
+@if ($op!=NULL)
+<span class="block">{{$op}}</span>
 
-                <span class="block">{{$op}}</span>
+
+@else
+<span class="block">0</span>
+
+@endif
+
 
                 @endisset
 
@@ -141,7 +148,7 @@
 <hr class="bg-gray-400 h-1 ">
 </div>
 {{-- ____________________________________________________________ --}}
-    <div class="flex flex-col gap-5 m-3">
+    <div class="flex flex-col gap-5 m-3 ">
         <form method="POST" action="{{route('store.comment',$pos->id)}}" id="fom1" >
           @csrf
             @auth
@@ -150,7 +157,7 @@
 
           @endauth
   </div>
-  <div  id="comment" style="display:none" class="w-fullbg-white rounded-lg border p-1 md:p-3 m-10 overflow-y-scroll h-96">
+  <div  id="comment" style="display:none" class="w-full bg-white rounded-lg border p-1 md:p-3 m-10 overflow-y-scroll ">
     <h3 class="font-semibold p-1">أضف تعليق</h3>
 
     <label for="chat" class="sr-only">Your message</label>
@@ -165,6 +172,7 @@
             <span class="sr-only">Send message</span>
         </button>
     </div>
+    <hr class="h-1 bg-slate-200 w-full">
 </form>
     {{--
 
@@ -181,6 +189,7 @@
 
         <!-- Comment Container -->
 
+        <div class="overflow-y-scroll h-96">
         @foreach ($al as $a)
 
         <div class="border border-r-emerald-500">
@@ -199,7 +208,7 @@
                             @endif
 
                             @endforeach
-                            <span class="text-sm text-gray-400 font-normal">Level 1</span>
+
                         </h3>
                     </div>
                     <p class="text-gray-600 mt-2">
@@ -211,7 +220,7 @@
             </div>
         </div>
         @endforeach
-
+    </div>
     </div>
 
       {{-- <div class="mb-6">

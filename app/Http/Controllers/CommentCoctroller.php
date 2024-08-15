@@ -9,6 +9,8 @@ use App\Models\Section;
 use Illuminate\Http\Request;
 use LDAP\Result;
 
+use function Laravel\Prompts\alert;
+
 class CommentCoctroller extends Controller
 {
 
@@ -19,22 +21,19 @@ class CommentCoctroller extends Controller
         $user_id=$request->user_id;
 if( $user_id!=null){
 
-        $comment=$request->comment;
-        Comment::create([
-                        'comment'=>$comment,
-                        'post_id'=>$id,
-                        'user_id'=>$user_id,
-                    ]);
+    $comment=$request->comment;
+    Comment::create([
+        'comment'=>$comment,
+        'post_id'=>$id,
+        'user_id'=>$user_id,
+    ]);
 
-                    $po=Post::find($id);
-                    $rr= Post::where('idsection',$id)->get();
-                    $fd=Section::all();
-                    $al=Comment::where('post_id',$id)->get();
-                    // dd($rr->print_like);
-                    return view('posts.show',['pos'=>$po,'posts'=>$fd,'bo'=>$rr,'op'=>$rr,'al'=>$al]);
+    // dd($rr->print_like);
+    return to_route('posts.show',$id);
 
-                }else{
-                    return to_route('register');
+}else{
+
+    return to_route('register');
 
                 }
 
