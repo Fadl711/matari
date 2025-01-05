@@ -89,7 +89,9 @@ class PostCoctroller extends Controller{
           $data->linknote=$link_note;
           $data->teypsection=$typeSection;
           $data->idsection=$typeSection;
+          $data->userid=auth()->user()->id;
           $data->save();
+
     return to_route('Control.create');
         }
 
