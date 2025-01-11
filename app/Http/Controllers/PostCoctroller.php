@@ -12,7 +12,14 @@ use Illuminate\Http\RedirectResponse;
 
 class PostCoctroller extends Controller{
 
-    //
+
+    public function  welcome(){
+        return view('posts.welcome');
+    }
+
+    public function  create(){
+        return view('posts.create');
+    }
     public function store(Request $request){
         $data=new Post  ;
         $title_art= $request->title_art;
@@ -82,39 +89,14 @@ class PostCoctroller extends Controller{
           $data->linknote=$link_note;
           $data->teypsection=$typeSection;
           $data->idsection=$typeSection;
+          $data->userid=auth()->user()->id;
           $data->save();
 
-          /* else{
-            $data->titleart=$title_art;
-            $data->body=$body;
-            $data->noteart=$note_art;
-            $data->linknote=$link_note;
-            $data->teypsection=$typeSection;
-            $data->idsection=$typeSection;
-          $data->save();} */
-
-
-
     return to_route('Control.create');
-
         }
-
-
-
-      public function  create(){
-          return view('posts.create');
-      }
-      public function  welcome(){
-          return view('posts.welcome');
-      }
-      public function  adminCo(){
-        return view('posts.adminCo');
-    }
 
     public function storeUser(Request $request)
     {
-
-
       $request->validate([
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
@@ -147,8 +129,8 @@ class PostCoctroller extends Controller{
         $typeSection= $request->typeSection;
 
         if(isset( $request->fileImg)){
-          $file22 =  $request->fileImg->getClientOriginalExtension();
-          $file_book = time().'.'.$file22;
+          $file_i =  $request->fileImg->getClientOriginalExtension();
+          $file_book = time().'.'.$file_i;
           $path = "book";
           $request->fileImg->move($path,$file_book);
           $data->update([
@@ -157,8 +139,8 @@ class PostCoctroller extends Controller{
         }
 
         if(isset( $request->fileVid)){
-          $file22 =  $request->fileVid->getClientOriginalExtension();
-          $file_Vid = time().'.'.$file22;
+          $file_v =  $request->fileVid->getClientOriginalExtension();
+          $file_Vid = time().'.'.$file_v;
           $path = "book";
           $request->fileVid->move($path,$file_Vid);
 $data->update([
@@ -193,8 +175,8 @@ $data->update([
         }
 
         if(isset( $request->fileAud)){
-          $file22 =$request->fileAud->getClientOriginalExtension();
-          $file_aud = time().'.'.$file22;
+          $file_a =$request->fileAud->getClientOriginalExtension();
+          $file_aud = time().'.'.$file_a;
           $path = "book";
           $request->fileAud->move($path,$file_aud);
           $data->update([

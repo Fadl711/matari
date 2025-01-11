@@ -25,9 +25,9 @@
 
 
 <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
-    @foreach ($posts as $post )
-@foreach($rr as $r)
-@if($post->id == $r->idsection )
+    @foreach ($section as $sec )
+@foreach($postsAll as $post)
+@if($sec->id == $post->idsection )
 
 <div class="border-b mb-5 flex justify-between text-sm my-10">
 <div class="text-bro flex items-center pb-2 pr-2 border-b-2 border-bro uppercase">
@@ -45,16 +45,16 @@ style="enable-background:new 0 0 455.005 455.005;" xml:space="preserve">
      <path d="M53.527,192.864c-2.187,3.518-1.109,8.142,2.409,10.329l183.478,114.081c1.232,0.767,2.601,1.132,3.953,1.132 c2.506,0,4.956-1.256,6.376-3.541c2.187-3.518,1.109-8.142-2.409-10.329L63.856,190.455 C60.338,188.266,55.714,189.346,53.527,192.864z"> </path>
 </g>
 </svg>
-<a href="{{Route('posts.show_all',$post->id)}}" class="font-semibold inline-block">{{$post->section_Name}}</a>
+<a href="{{Route('posts.show_all',$sec->id)}}" class="font-semibold inline-block">{{$sec->section_Name}}</a>
 </div>
-<a href="{{Route('posts.show_all',$post->id)}}">مشاهدات الكل</a>
+<a href="{{Route('posts.show_all',$sec->id)}}">مشاهدات الكل</a>
 </div>
 
 
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
 
 
-    @foreach ($rr->where('idsection',$post->id )->take(3) as $r)
+    @foreach ($postsAll->where('idsection',$sec->id )->take(3) as $post)
 
 
 <!-- CARD 1 -->
@@ -64,13 +64,13 @@ style="enable-background:new 0 0 455.005 455.005;" xml:space="preserve">
 
     @if((Auth::user()->usertype=='admin2')or(Auth::user()->usertype=='admin'))
 <div class="flex">
-    <form class=""  method="POST" action="{{route('posts.destroy',$r->id)}}">
+    <form class=""  method="POST" action="{{route('posts.destroy',$post->id)}}">
         @csrf
         @method('DELETE')
         <button  type="submit" class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">حذف</button>
       </form>
 
-    <a href="{{route('posts.edit',$r->id)}}" class=" w-20 text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">تعديل</a>
+    <a href="{{route('posts.edit',$post->id)}}" class=" w-20 text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">تعديل</a>
     </div>
     @endif
     @endauth
@@ -92,9 +92,9 @@ style="enable-background:new 0 0 455.005 455.005;" xml:space="preserve">
 </a> --}}
 
 
-<a href="{{Route('posts.show',$r->id)}}">
+<a href="{{Route('posts.show',$post->id)}}">
  <img class="w-full h-40 border border-t-bro"
-     src="@if($r->imgart!=NULL){{url('book/'.$r->imgart.'')}}
+     src="@if($post->imgart!=NULL){{url('book/'.$post->imgart.'')}}
                      @else https://th.bing.com/th/id/OSK.HEROQpKkwDXfPIzn7s1ZoMWhLTgfsO0PydmZWDLKMTvEmwk?rs=1&pid=ImgDetMain
                      @endif"
      alt="لاتوجد صورة">
@@ -111,10 +111,10 @@ style="enable-background:new 0 0 455.005 455.005;" xml:space="preserve">
 
      <div
          class="text-xs absolute top-0 right-0 bg-bro px-4 py-2 text-white mt-3 mr-3 hover:bg-white hover:text-bro transition duration-500 ease-in-out">
-         @foreach ($posts as $post)
+         @foreach ($section as $sec)
 
-         @if ($r->idsection==$post->id)
-    {{$post->section_Name}}
+         @if ($post->idsection==$sec->id)
+    {{$sec->section_Name}}
          @endif
          @endforeach
      </div>
@@ -122,10 +122,10 @@ style="enable-background:new 0 0 455.005 455.005;" xml:space="preserve">
 </div>
 <div class="px-6 py-4 mb-auto">
  <div
-     class="font-medium text-lg  hover:text-bro transition duration-500 ease-in-out inline-block mb-2">{{$r->titleart}}
+     class="font-medium text-lg  hover:text-bro transition duration-500 ease-in-out inline-block mb-2">{{$post->titleart}}
     </div>
  <p class="text-gray-500 text-sm line-clamp-2" >
-   {{$r->body}}
+   {{$post->body}}
 </p><span class="text-teal-600">قراءة المزيد</span>
 </a>
 </div>
@@ -143,7 +143,7 @@ style="enable-background:new 0 0 455.005 455.005;" xml:space="preserve">
              </g>
          </g>
      </svg>
-     <span class="mx-2"> {{ date("Y-m-d",strtotime($r->created_at) )}} mins ago</span>
+     <span class="mx-2"> {{ date("Y-m-d",strtotime($post->created_at) )}} mins ago</span>
  </span>
 
  <span href="#" class="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
@@ -152,7 +152,7 @@ style="enable-background:new 0 0 455.005 455.005;" xml:space="preserve">
              d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
          </path>
      </svg>
-     <span class="ml-1">{{$comm->where('post_id',$r->id)->count()}} </span>
+     <span class="ml-1">{{$comm->where('post_id',$post->id)->count()}} </span>
  </span>
 
 </div>

@@ -21,29 +21,24 @@ return  to_route('Control.create') ;
       }
       // _____________________________________________
       public function create(){
-        $fd=Section::all();
-        return view('Control.create',['posts'=>$fd]) ;
+        return view('Control.create') ;
       }
-// _____________________________________________
+// _________________________________________
       public function  welcome(){
-        $r=Post::all();
-        $fd=Section::all();
-        $value = User::where('email','fat@gmail.com');
-        return view('posts.welcome',['posts'=>$fd,'rr'=>$r]);
+        return view('posts.welcome');
     }
 // _____________________________________________
   public function  show_all($id){
-    $r1=Post::where('idsection',$id);
-    $rr=$r1->paginate(5);
-    $fd=Section::find($id);
-    return view('posts.show_all',['rr'=>$rr,'posts2'=>$fd,]);
+    $post=Post::where('idsection',$id);
+    $posts=$post->paginate(6);
+    $section=Section::find($id);
+    return view('posts.show_all',['allPost'=>$posts,'sectionFind'=>$section,]);
 }
 public function  show($id){
-  $po=Post::find($id);
+  $posts=Post::find($id);
   $rr= Post::where('idsection',$id)->get();
-  $fd=Section::all();
 $sums= Like::where('post_id',$id)->sum('print_like');
-$al=Comment::where('post_id',$id)->get();
-  return view('posts.show',['pos'=>$po,'posts'=>$fd,'bo'=>$rr,'op'=>$sums,'al'=>$al]);
+$comment=Comment::where('post_id',$id)->get();
+  return view('posts.show',['posts'=>$posts,'like'=>$sums,'comment'=>$comment]);
 }
 }

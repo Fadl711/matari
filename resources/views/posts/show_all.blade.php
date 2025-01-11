@@ -1,6 +1,6 @@
 @extends("layout")
 @section('title')
-{{$posts2->section_Name}}
+{{$sectionFind->section_Name}}
 @endsection
 @section('content')
 <br>
@@ -22,7 +22,7 @@
     </g>
     </svg>
 
-    <p href="#" class="font-semibold inline-block text-2xl">{{$posts2->section_Name}}</p>
+    <p href="#" class="font-semibold inline-block text-2xl">{{$sectionFind->section_Name}}</p>
     <hr class="my-6 rounded-lg   border border-gray-500 rounded-s-lg mr-10   bg-bro">
     </div>
 
@@ -54,7 +54,7 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
 
-                @foreach($rr as $r)
+                @foreach($allPost as $item)
                 <!-- CARD 1 -->
                 <div class="rounded overflow-hidden shadow-lg flex flex-col">
                     @Auth
@@ -62,54 +62,38 @@
 
                     @if(Auth::User()->usertype=='admin')
                 <div class="flex">
-                    <form class=""  method="POST" action="{{route('posts.destroy',$r->id)}}">
+                    <form class=""  method="POST" action="{{route('posts.destroy',$item->id)}}">
                         @csrf
                         @method('DELETE')
                         <button  type="submit" class="text-purple-700 hover:text-white border border-purple-700 hover:bg-purple-800 focus:ring-4 focus:outline-none focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-purple-400 dark:text-purple-400 dark:hover:text-white dark:hover:bg-purple-500 dark:focus:ring-purple-900">حذف</button>
                       </form>
 
-                    <a href="{{route('posts.edit',$r->id)}}" class=" w-20 text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">تعديل</a>
+                    <a href="{{route('posts.edit',$item->id)}}" class=" w-20 text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">تعديل</a>
                     </div>
                 @endif
                     @endauth
-
                 <div class="relative">
-
-
-                {{-- <a href="{{Route('posts.show',$r->id)}}">
-                   <video src="{{url('book/'.$r->fileVid.'')}}" controls ></video>
-                </a> --}}
-
-
-                <a href="{{Route('posts.show',$r->id)}}">
+                <a href="{{Route('posts.show',$item->id)}}">
                  <img class="w-full h-40 border border-t-bro"
-                     src="@if($r->imgart!=NULL){{url('book/'.$r->imgart.'')}}
+                     src="@if($item->imgart!=NULL){{url('book/'.$item->imgart.'')}}
                      @else https://th.bing.com/th/id/OSK.HEROQpKkwDXfPIzn7s1ZoMWhLTgfsO0PydmZWDLKMTvEmwk?rs=1&pid=ImgDetMain
                      @endif"
                      alt="Sunset in the mountains">
-
-
-
-
-
                      <div
                          class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 hover:bg-gray-900 hover:opacity-25">
                      </div>
-
-
-
                      <div
                          class="text-xs absolute top-0 right-0 bg-bro px-4 py-2 text-white mt-3 mr-3 hover:bg-white hover:text-bro transition duration-500 ease-in-out">
-                         {{$posts2->section_Name}}
+                         {{$sectionFind->section_Name}}
                      </div>
 
                 </div>
                 <div class="px-6 py-4 mb-auto">
                  <div
-                     class="font-medium text-lg  hover:text-bro transition duration-500 ease-in-out inline-block mb-2">{{$r->titleart}}
+                     class="font-medium text-lg  hover:text-bro transition duration-500 ease-in-out inline-block mb-2">{{$item->titleart}}
                     </div>
                  <p class="text-gray-500 text-sm line-clamp-2" >
-                   {{$r->body}}
+                   {{$item->body}}
                 </p><span class="text-teal-600">قراءة المزيد</span>
                 </a>
                 </div>
@@ -127,29 +111,22 @@
                              </g>
                          </g>
                      </svg>
-                     <span class="mx-2"> {{ date("Y-m-d",strtotime($r->created_at) )}}</span>
+                     <span class="mx-2"> {{ date("Y-m-d",strtotime($item->created_at) )}}</span>
                  </span>
-
                  <span href="#" class="py-1 text-xs font-regular text-gray-900 mr-1 flex flex-row items-center">
                      <svg class="h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                              d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z">
                          </path>
                      </svg>
-                     <span class="ml-1">{{$comm->where('post_id',$r->id)->count()}}</span>
+                     <span class="ml-1">{{$comm->where('post_id',$item->id)->count()}}</span>
                  </span>
-
                 </div>
                 </div>
-
                 @endforeach
                 </div>
                 </div>
-
-
+                {{$allPost->links()}}
        {{-- ---------------------------------------------- --}}
-
-
 @endsection
 
-    {{-- {{$rr->links()}} --}}

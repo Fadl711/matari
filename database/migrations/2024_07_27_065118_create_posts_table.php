@@ -13,16 +13,20 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('titleart');
-            $table->string(column:'body');
-            $table->string(column:'imgart');
-            $table->string(column:'likeart');
-            $table->string(column:'noteart');
-            $table->string(column:'linknote');
-            
-            $table->unsignedBigInteger(column:'idsection');
-            $table->unsignedBigInteger(column:'userid');
-            $table->foreign('idsection')->references('id')->on('sections');
+            $table->string('titleart')->nullable();
+            $table->string('body')->nullable();
+            $table->string('imgart')->nullable();
+            $table->string('likeart')->nullable();
+            $table->string('noteart')->nullable();
+            $table->string('linknote')->nullable();
+            $table->string('fileVid')->nullable();
+            $table->string('fileAud')->nullable();
+            $table->string('link_video')->nullable();
+            $table->string('books')->nullable();
+            $table->integer('idsection');
+            $table->integer('userid');
+            $table->integer('teypsection');
+
             $table->timestamps();
         });
     }

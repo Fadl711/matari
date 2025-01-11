@@ -28,16 +28,15 @@ class RiakServiceProvider extends ServiceProvider
     {
 
         Facades\View::composer('*', function (View $view) {
-            $posts=Section::all();
-            $ww=Post::all();
+            $section=Section::all();
+            $posts=Post::all();
             $users=User::all();
             $sums=Comment::all();
-            $sums1= Like::all();
-            $view->with('posts',$posts);
+            $view->with('section',$section);
             $view->with('users',$users);
-            $view->with('ww',$ww);
+            $view->with('postsAll',$posts);
             $view->with('comm',$sums);
-            $view->with('like',$sums1);
+
         });
     }
 }

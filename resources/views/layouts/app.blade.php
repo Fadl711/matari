@@ -24,11 +24,12 @@
 
             <!-- Page Content -->
             <main>
-                {{$slot}}
                 @auth
-                    @if (Auth::user()->usertype=='admin')
+                @if (Auth::user()->usertype=='admin')
 
-                    @include('posts.show_users')
+                @include('posts.show_users')
+                @else
+                {{$slot}}
                     @endif
                 @endauth
 
