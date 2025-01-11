@@ -106,7 +106,7 @@
 </div>
         <div class=" sm:flex   p-2  ">
             <div class=" inline-flex   shadow-sm sm:ml-5  bg-white rounded-full border border-gray-200 " role="group">
-             <form method="POST" action="{{route('store.show',$posts->id)}}" id="form1">
+             <form method="POST" action="{{route('store.like',$posts->id)}}" id="form1">
                 @csrf  {{--,$pos->id --}}
                 @auth
 
@@ -160,15 +160,23 @@
                 <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 
           @endauth
+
   </div>
-  <div  id="comment" style="display:none" class="w-full bg-white rounded-lg border p-1 md:p-3 m-10 overflow-y-scroll ">
+  @php
+    $commentText = session('comment_text');
+@endphp
+  <div  id="comment" @if($commentText)
+  style="display:block"
+@else
+style="display:none"
+  @endif  class="w-full bg-white rounded-lg border p-1 md:p-3 m-10 overflow-y-scroll ">
     <h3 class="font-semibold p-1">أضف تعليق</h3>
 
     <label for="chat" class="sr-only">Your message</label>
     <div class="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
 
 
-        <textarea name="comment" id="chat" rows="2" cols="2" class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="رسالتك..."></textarea>
+        <textarea name="comment" id="comment_input" rows="2" cols="2" class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="رسالتك...">{{ session('comment_text') }}</textarea>
             <button type="submit" class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
             <svg class="w-5 h-5 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                 <path d="m17.914 18.594-8-18a1 1 0 0 0-1.828 0l-8 18a1 1 0 0 0 1.157 1.376L8 18.281V9a1 1 0 0 1 2 0v9.281l6.758 1.689a1 1 0 0 0 1.156-1.376Z"/>
@@ -233,9 +241,9 @@
       </div> --}}
 
     <script>
+        var mc=document.getElementById("comment");
         function comm(){
 
-    var mc=document.getElementById("comment");
 
         if(mc.style.display=="none"){
 
@@ -247,6 +255,10 @@
         mc.style.display="none";
     }
     }
+
+    window.onload = function() {
+        document.getElementById('comment_input').focus();
+    };
     </script>
 
 @endsection

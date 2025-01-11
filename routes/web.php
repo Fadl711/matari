@@ -8,33 +8,44 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostCoctroller;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SectionController;
-use App\Models\Post;
-use Illuminate\Routing\Controllers\Middleware;
 
-
-Route::post('/posts1',[PostCoctroller::class,'store'])->name('posts.store');
-Route::post('/posts/{post}/store/',[CommentCoctroller::class,'storeshow'])->name('store.show');
-Route::post('/posts/{post}',[CommentCoctroller::class,'comment'])->name('store.comment');
+//اضافة لايك للمشنور
+Route::post('/likes/{like}/store',[CommentCoctroller::class,'likes'])->name('store.like')->middleware('auth');
+//اضافة تعليق
+Route::post('/comments/{comment}',[CommentCoctroller::class,'comment'])->name('store.comment')->middleware('auth.redirect');
 
 Route::get('/',[SectionController::class,'welcome'])->name('posts.welcome');
+//اظهار جميع المنشورات
 Route::get('/posts/{post}/show_all',[SectionController::class,'show_all'])->name('posts.show_all');
+//اظهار المنشور فقط
 Route::get('/posts/{post}/show',[SectionController::class,'show'])->name('posts.show');
-Route::post('store',[PostCoctroller::class,'storeUser'])->name('store.user');
+//هذه  مش مهم حالياً
+Route::post('users',[PostCoctroller::class,'storeUser'])->name('store.user');
+
 Route::get('/search',[SearchController::class,'search'])->name('search');
 
-Route::middleware(['auth','admin','admin2'])->group(function () {
 
+//هولاء جميع الرواتات الذي تتحكم با المنشورات حذف , تعديل واضافة
+Route::middleware(['auth','admin','admin2'])->group(function () {
+    Route::post('/posts',[PostCoctroller::class,'store'])->name('posts.store');
     Route::delete('/posts/{post}',[PostCoctroller::class,'destroy'])->name('posts.destroy');
     Route::get('/posts/{post}/edit',[PostCoctroller::class,'edit'])->name("posts.edit");
     Route::put('/posts/{post}',[PostCoctroller::class,'update'])->name('posts.update');
+
+
+
+    //اضافة الاقسام
     Route::get('/Control/create',[SectionController::class,'create'])->name('Control.create');
     Route::post('/Control',[SectionController::class,'store'])->name('Control.store');
+
 });
 
 Route::middleware(['auth','admin'])->group(function () {
-    Route::get('/posts6',function(){
+    //اظهار المستخدين
+    Route::get('/showUsers',function(){
         return view('posts.show_users');
     })->name('show.users');
+    //تعديل الصلاحيات
     Route::post('users/{id}',[UserController::class,'update'])->name('user.edit');
 
 });
