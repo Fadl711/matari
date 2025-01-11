@@ -19,7 +19,6 @@ class CommentCoctroller extends Controller
 
 
         $user_id=$request->user_id;
-if( $user_id!=null){
 
     $comment=$request->comment;
     Comment::create([
@@ -27,15 +26,10 @@ if( $user_id!=null){
         'post_id'=>$id,
         'user_id'=>$user_id,
     ]);
-
+    session()->forget('comment_text');
     // dd($rr->print_like);
     return to_route('posts.show',$id);
 
-}else{
-
-    return to_route('register');
-
-                }
 
 
 
@@ -46,7 +40,7 @@ if( $user_id!=null){
 
 
 
-    public function storeshow(Request $request, $id){
+    public function likes(Request $request, $id){
      $user_id=$request->user_id;
      $data=Like::where('post_id',$id)->where('user_id', $user_id)->first();
      if(isset($data)){

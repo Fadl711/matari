@@ -92,7 +92,7 @@ class PostCoctroller extends Controller{
           $data->userid=auth()->user()->id;
           $data->save();
 
-    return to_route('Control.create');
+          return  to_route('posts.show_all',$typeSection);
         }
 
     public function storeUser(Request $request)
