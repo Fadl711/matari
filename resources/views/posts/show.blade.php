@@ -106,11 +106,7 @@
 </div>
         <div class=" sm:flex   p-2  ">
             <div class=" inline-flex   shadow-sm sm:ml-5  bg-white rounded-full border border-gray-200 " role="group">
-<<<<<<< HEAD
-             <form method="POST" action="{{route('store.show',$posts->id)}}" id="form1">
-=======
              <form method="POST" action="{{route('store.like',$posts->id)}}" id="form1">
->>>>>>> 1b1f1e2748dcae6c885c9110c7c40b7b097f63f1
                 @csrf  {{--,$pos->id --}}
                 @auth
 

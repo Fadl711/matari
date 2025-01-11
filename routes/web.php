@@ -24,7 +24,6 @@ Route::post('users',[PostCoctroller::class,'storeUser'])->name('store.user');
 
 Route::get('/search',[SearchController::class,'search'])->name('search');
 
-
 //هولاء جميع الرواتات الذي تتحكم با المنشورات حذف , تعديل واضافة
 Route::middleware(['auth','admin','admin2'])->group(function () {
     Route::post('/posts',[PostCoctroller::class,'store'])->name('posts.store');
@@ -45,10 +44,7 @@ Route::middleware(['auth','admin'])->group(function () {
     Route::get('/showUsers',function(){
         return view('posts.show_users');
     })->name('show.users');
-<<<<<<< HEAD
-=======
     //تعديل الصلاحيات
->>>>>>> 1b1f1e2748dcae6c885c9110c7c40b7b097f63f1
     Route::post('users/{id}',[UserController::class,'update'])->name('user.edit');
 
 });
