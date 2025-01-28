@@ -10,203 +10,202 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\RedirectResponse;
 
 
-class PostCoctroller extends Controller{
+class PostCoctroller extends Controller
+{
 
 
-    public function  welcome(){
-        return view('posts.welcome');
-    }
-
-    public function  create(){
-        return view('posts.create');
-    }
-    public function store(Request $request){
-        $data=new Post  ;
-        $title_art= $request->title_art;
-        $body= $request->body;
-        $note_art= $request->note_art;
-        $link_note= $request->link_note;
-        $typeSection= $request->typeSection;
-        $idsection= $request->idsection;
-        if(isset( $request->fileImg)){
-          $file22 =  $request->fileImg->getClientOriginalExtension();
-          $file_book = time().'.'.$file22;
-          $path = "book";
-          $request->fileImg->move($path,$file_book);
-          $data->imgart=$file_book;
-        }
-
-        if(isset( $request->fileVid)){
-          $file22 =  $request->fileVid->getClientOriginalExtension();
-          $file_Vid = time().'.'.$file22;
-          $path = "book";
-          $request->fileVid->move($path,$file_Vid);
-          $data->fileVid=$file_Vid;
-        }
-        else if(isset( $request->link_video)){
-            function getTextBetweenWords($text, $startWord, $endWord)
+  public function  welcome()
   {
-      $startPos = strpos($text, $startWord);
-      if ($startPos === false) {
-          return ''; // الكلمة البداية غير موجودة
-      }
-      $startPos += strlen($startWord); // تجاوز الكلمة البداية
-
-      $endPos = strpos($text, $endWord, $startPos);
-      if ($endPos === false) {
-          return ''; // الكلمة النهاية غير موجودة
-      }
-
-      $length = $endPos - $startPos;
-      return substr($text, $startPos, $length);
+    return view('posts.welcome');
   }
-            $text = $request->link_video ;
-            $startWord = 'e/';
-            $endWord = '?s';
 
-            $result =getTextBetweenWords($text, $startWord, $endWord);
-            $data->link_video= $result;
+  public function  create()
+  {
+    return view('posts.create');
+  }
+  public function store(Request $request)
+  {
+    $data = new Post;
+    $title_art = $request->title_art;
+    $body = $request->body;
+    $note_art = $request->note_art;
+    $link_note = $request->link_note;
+    $typeSection = $request->typeSection;
+    $idsection = $request->idsection;
+    if (isset($request->fileImg)) {
+      $file22 =  $request->fileImg->getClientOriginalExtension();
+      $file_book = time() . '.' . $file22;
+      $path = "book";
+      $request->fileImg->move($path, $file_book);
+      $data->imgart = $file_book;
+    }
+
+    if (isset($request->fileVid)) {
+      $file22 =  $request->fileVid->getClientOriginalExtension();
+      $file_Vid = time() . '.' . $file22;
+      $path = "book";
+      $request->fileVid->move($path, $file_Vid);
+      $data->fileVid = $file_Vid;
+    } else if (isset($request->link_video)) {
+      function getTextBetweenWords($text, $startWord, $endWord)
+      {
+        $startPos = strpos($text, $startWord);
+        if ($startPos === false) {
+          return ''; // الكلمة البداية غير موجودة
+        }
+        $startPos += strlen($startWord); // تجاوز الكلمة البداية
+
+        $endPos = strpos($text, $endWord, $startPos);
+        if ($endPos === false) {
+          return ''; // الكلمة النهاية غير موجودة
         }
 
-        if(isset( $request->fileAud)){
-          $file22 =$request->fileAud->getClientOriginalExtension();
-          $file_aud = time().'.'.$file22;
-          $path = "book";
-          $request->fileAud->move($path,$file_aud);
-          $data->fileAud=$file_aud;
-        }
-        if(isset($request->book)){
-            $file_b = $request->book->getClientOriginalExtension();
-            $file_book = time().'.'.$file_b;
-            $path = "book";
-            $request->book->move($path,$file_book);
-            $data->books=$file_book;
+        $length = $endPos - $startPos;
+        return substr($text, $startPos, $length);
+      }
+      $text = $request->link_video;
+      $startWord = 'e/';
+      $endWord = '?s';
 
-            }
-          $data->titleart=$title_art;
-          $data->body=$body;
-          $data->noteart=$note_art;
-          $data->linknote=$link_note;
-          $data->teypsection=$typeSection;
-          $data->idsection=$typeSection;
-          $data->userid=auth()->user()->id;
-          $data->save();
+      $result = getTextBetweenWords($text, $startWord, $endWord);
+      $data->link_video = $result;
+    }
 
-          return  to_route('posts.show_all',$typeSection);
-        }
+    if (isset($request->fileAud)) {
+      $file22 = $request->fileAud->getClientOriginalExtension();
+      $file_aud = time() . '.' . $file22;
+      $path = "book";
+      $request->fileAud->move($path, $file_aud);
+      $data->fileAud = $file_aud;
+    }
+    if (isset($request->book)) {
+      $file_b = $request->book->getClientOriginalExtension();
+      $file_book = time() . '.' . $file_b;
+      $path = "book";
+      $request->book->move($path, $file_book);
+      $data->books = $file_book;
+    }
+    $data->titleart = $title_art;
+    $data->body = $body;
+    $data->noteart = $note_art;
+    $data->linknote = $link_note;
+    $data->teypsection = $typeSection;
+    $data->idsection = $typeSection;
+    $data->userid = auth()->user()->id;
+    $data->save();
 
-    public function storeUser(Request $request)
-    {
-      $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-        /* 'password' => ['required', 'confirmed', Rules\Password::defaults()], */
+    return  to_route('posts.show_all', $typeSection);
+  }
+
+  public function storeUser(Request $request)
+  {
+    $request->validate([
+      'name' => ['required', 'string', 'max:255'],
+      'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+      /* 'password' => ['required', 'confirmed', Rules\Password::defaults()], */
     ]);
 
-      User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        /* 'password' => Hash::make($request->password), */
-      ]);
+    User::create([
+      'name' => $request->name,
+      'email' => $request->email,
+      /* 'password' => Hash::make($request->password), */
+    ]);
 
 
-      return redirect(route('posts.welcome',['session'=>$request->email]));
-    }
-    public function destroy($id){
-        $Post=Post::find($id)->delete();
-        return to_route('posts.welcome');
-    }
-    public function edit($id){
-        $post=Post::find($id);
-        return view('posts.edit',['posts3'=>$post]);
-    }
-    public function update(Request $request , $id){
-        $data=Post::find($id);
-        $title_art= $request->title_art;
-        $body= $request->body;
-        $note_art= $request->note_art;
-        $link_note= $request->link_note;
-        $typeSection= $request->typeSection;
-
-        if(isset( $request->fileImg)){
-          $file_i =  $request->fileImg->getClientOriginalExtension();
-          $file_book = time().'.'.$file_i;
-          $path = "book";
-          $request->fileImg->move($path,$file_book);
-          $data->update([
-            'imgart'=>$file_book,
-            ]);
-        }
-
-        if(isset( $request->fileVid)){
-          $file_v =  $request->fileVid->getClientOriginalExtension();
-          $file_Vid = time().'.'.$file_v;
-          $path = "book";
-          $request->fileVid->move($path,$file_Vid);
-$data->update([
-'fileVid'=>$file_Vid,
-]);
-        }
-        else if(isset( $request->link_video)){
-            function getTextBetweenWords($text, $startWord, $endWord)
-  {
-      $startPos = strpos($text, $startWord);
-      if ($startPos === false) {
-          return ''; // الكلمة البداية غير موجودة
-      }
-      $startPos += strlen($startWord); // تجاوز الكلمة البداية
-
-      $endPos = strpos($text, $endWord, $startPos);
-      if ($endPos === false) {
-          return ''; // الكلمة النهاية غير موجودة
-      }
-
-      $length = $endPos - $startPos;
-      return substr($text, $startPos, $length);
+    return redirect(route('posts.welcome', ['session' => $request->email]));
   }
-            $text = $request->link_video ;
-            $startWord = 'e/';
-            $endWord = '?s';
+  public function destroy($id)
+  {
+    $Post = Post::find($id)->delete();
+    return to_route('posts.welcome');
+  }
+  public function edit($id)
+  {
+    $post = Post::find($id);
+    return view('posts.edit', ['posts3' => $post]);
+  }
+  public function update(Request $request, $id)
+  {
+    $data = Post::find($id);
+    $title_art = $request->title_art;
+    $body = $request->body;
+    $note_art = $request->note_art;
+    $link_note = $request->link_note;
+    $typeSection = $request->typeSection;
 
-            $result =getTextBetweenWords($text, $startWord, $endWord);
-            $data->update([
-                'link_video'=>$result,
-                ]);
-        }
-
-        if(isset( $request->fileAud)){
-          $file_a =$request->fileAud->getClientOriginalExtension();
-          $file_aud = time().'.'.$file_a;
-          $path = "book";
-          $request->fileAud->move($path,$file_aud);
-          $data->update([
-            'fileAud'=>$file_aud,
-            ]);
-
-        }
-        if(isset($request->book)){
-            $file_b = $request->book->getClientOriginalExtension();
-            $file_book = time().'.'.$file_b;
-            $path = "book";
-            $request->book->move($path,$file_book);
-            $data->update([
-                'books'=>$file_book,
-                ]);
-
-            }
-          $data->update([
-            'titleart'=>$title_art,
-            'body'=>$body,
-            'noteart'=>$note_art,
-            'linknote'=>$link_note,
-            'teypsection'=>$typeSection,
-            'idsection'=>$typeSection,
-
-          ]);
-
- return to_route('posts.welcome');
-
-
+    if (isset($request->fileImg)) {
+      $file_i =  $request->fileImg->getClientOriginalExtension();
+      $file_book = time() . '.' . $file_i;
+      $path = "book";
+      $request->fileImg->move($path, $file_book);
+      $data->update([
+        'imgart' => $file_book,
+      ]);
     }
 
+    if (isset($request->fileVid)) {
+      $file_v =  $request->fileVid->getClientOriginalExtension();
+      $file_Vid = time() . '.' . $file_v;
+      $path = "book";
+      $request->fileVid->move($path, $file_Vid);
+      $data->update([
+        'fileVid' => $file_Vid,
+      ]);
+    } else if (isset($request->link_video)) {
+      function getTextBetweenWords($text, $startWord, $endWord)
+      {
+        $startPos = strpos($text, $startWord);
+        if ($startPos === false) {
+          return ''; // الكلمة البداية غير موجودة
+        }
+        $startPos += strlen($startWord); // تجاوز الكلمة البداية
+
+        $endPos = strpos($text, $endWord, $startPos);
+        if ($endPos === false) {
+          return ''; // الكلمة النهاية غير موجودة
+        }
+
+        $length = $endPos - $startPos;
+        return substr($text, $startPos, $length);
+      }
+      $text = $request->link_video;
+      $startWord = 'e/';
+      $endWord = '?s';
+
+      $result = getTextBetweenWords($text, $startWord, $endWord);
+      $data->update([
+        'link_video' => $result,
+      ]);
     }
+
+    if (isset($request->fileAud)) {
+      $file_a = $request->fileAud->getClientOriginalExtension();
+      $file_aud = time() . '.' . $file_a;
+      $path = "book";
+      $request->fileAud->move($path, $file_aud);
+      $data->update([
+        'fileAud' => $file_aud,
+      ]);
+    }
+    if (isset($request->book)) {
+      $file_b = $request->book->getClientOriginalExtension();
+      $file_book = time() . '.' . $file_b;
+      $path = "book";
+      $request->book->move($path, $file_book);
+      $data->update([
+        'books' => $file_book,
+      ]);
+    }
+    $data->update([
+      'titleart' => $title_art,
+      'body' => $body,
+      'noteart' => $note_art,
+      'linknote' => $link_note,
+      'teypsection' => $typeSection,
+      'idsection' => $typeSection,
+
+    ]);
+
+    return to_route('posts.welcome');
+  }
+}

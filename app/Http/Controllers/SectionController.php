@@ -32,7 +32,8 @@ return  to_route('Control.create') ;
     $post=Post::where('idsection',$id);
     $posts=$post->paginate(6);
     $section=Section::find($id);
-    return view('posts.show_all',['allPost'=>$posts,'sectionFind'=>$section,]);
+    $comment = Comment::where('post_id', $id)->get();
+    return view('posts.show_all',['allPost'=>$posts,'sectionFind'=>$section, 'comment'=>$comment]);
 }
 public function  show($id){
   $posts=Post::find($id);
