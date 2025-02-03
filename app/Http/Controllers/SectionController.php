@@ -37,9 +37,9 @@ return  to_route('Control.create') ;
 }
 public function  show($id){
   $posts=Post::find($id);
-  $rr= Post::where('idsection',$id)->get();
+
 $sums= Like::where('post_id',$id)->sum('print_like');
-$comment=Comment::where('post_id',$id)->get();
+$comment=Comment::where('post_id',$id)->with('user')->get();
   return view('posts.show',['posts'=>$posts,'like'=>$sums,'comment'=>$comment]);
 }
 }

@@ -116,13 +116,13 @@ class PostCoctroller extends Controller
   }
   public function destroy($id)
   {
-    $Post = Post::find($id)->delete();
+    Post::find($id)->delete();
     return to_route('posts.welcome');
   }
   public function edit($id)
   {
-    $post = Post::find($id);
-    return view('posts.edit', ['posts3' => $post]);
+    $posts3 = Post::find($id);
+    return view('posts.edit', compact('posts3'));
   }
   public function update(Request $request, $id)
   {

@@ -17,7 +17,7 @@
 
    @if((Auth::user()->usertype=='admin2')or(Auth::user()->usertype=='admin'))
     <div class="flex">
-        <form class=""  method="POST" action="{{route('posts.destroy',$posts->id)}}">
+        <form   method="POST" action="{{route('posts.destroy',$posts->id)}}">
             @csrf
             @method('DELETE')
             <button  type="submit" class="text-purple-700
@@ -32,7 +32,10 @@
              w-20 text-yellow-400 hover:text-white border border-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-yellow-300 dark:text-yellow-300 dark:hover:text-white dark:hover:bg-yellow-400 dark:focus:ring-yellow-900">تعديل</a>
         </div>
     @endif
+
         @endauth
+
+
     @if($posts->imgart!=NULL)
     <img class=" mx-auto  place-content-center " style="min-height: 450px; "
      width="800px" src="{{url('book/'.$posts->imgart.'')}}">
@@ -49,6 +52,7 @@
             <p class="text-base leading-8 my-5">
                 {{$posts->body}}
             </p>
+
 @if ($posts->books!=NULL)
 <a href="{{url('book/'.$posts->books.'')}}" class="text-gray-900 mx-1 transition ease-in-out delay-150
     hover:-translate-y-1 hover:scale-110  duration-300  bg-gray-200
@@ -61,13 +65,17 @@
 
 @endif
              @if($posts->fileVid!=NULL)
-
-
-
             <p class="text-base leading-8 my-5">
               <video src="{{url('book/'.$posts->fileVid.'')}}" controls ></video>
 
             </p>
+            <a href="{{url('book/'.$posts->fileVid.'')}}" class=" mt-5block w-32 text-gray-900 mx-1 transition ease-in-out delay-150
+                hover:-translate-y-1 hover:scale-110  duration-300  bg-gray-200
+                 hover:bg-gray-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center
+                  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">تنزيل
+                  <svg class=" inline w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 15v2a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-2m-8 1V4m0 12-4-4m4 4 4-4"/>
+              </svg></a>
             @endif
             @if($posts->link_video!=NULL)
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/{{$posts->link_video}}?si=eGefC7oFRFyf3bYx" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
@@ -119,7 +127,7 @@
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11c.889-.086 1.416-.543 2.156-1.057a22.323 22.323 0 0 0 3.958-5.084 1.6 1.6 0 0 1 .582-.628 1.549 1.549 0 0 1 1.466-.087c.205.095.388.233.537.406a1.64 1.64 0 0 1 .384 1.279l-1.388 4.114M7 11H4v6.5A1.5 1.5 0 0 0 5.5 19v0A1.5 1.5 0 0 0 7 17.5V11Zm6.5-1h4.915c.286 0 .372.014.626.15.254.135.472.332.637.572a1.874 1.874 0 0 1 .215 1.673l-2.098 6.4C17.538 19.52 17.368 20 16.12 20c-2.303 0-4.79-.943-6.67-1.475"/>
                 </svg>
-                @isset($like)
+
 @if ($like!=NULL)
 <span class="block">{{$like}}</span>
 
@@ -130,7 +138,7 @@
 @endif
 
 
-                @endisset
+
 
               </button>
             </form>
@@ -212,15 +220,8 @@ style="display:none"
                         <img src="https://th.bing.com/th/id/R.8e2c571ff125b3531705198a15d3103c?rik=gzhbzBpXBa%2bxMA&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fuser-png-icon-big-image-png-2240.png&ehk=VeWsrun%2fvDy5QDv2Z6Xm8XnIMXyeaz2fhR3AgxlvxAc%3d&risl=&pid=ImgRaw&r=0"
                                 class="object-cover w-10 h-10 rounded-full border-2 border-emerald-400  shadow-emerald-400">
                         <h3 class="font-bold">
-                            @foreach ($users as $user)
-
-                            @if ($com->user_id==$user->id)
-
-                            {{$user->name}}                            <br>
-                            @endif
-
-                            @endforeach
-
+                            {{$com->user->name}}
+                            <br>
                         </h3>
                     </div>
                     <p class="text-gray-600 mt-2">
