@@ -1,24 +1,24 @@
 @if (Auth::user()->usertype=='admin')
 
-@forelse ($users as $user)
 
 
 
-              <div class=" ">
-                  <table class=" min-w-full rounded-xl ">
-                      <thead>
-                          <tr class="bg-gray-50">
-                            <th scope="col" class="  text-center text-sm leading-2  text-gray-900 capitalize rounded-t-xl">  id </th>
+<div class=" ">
+    <table class=" min-w-full rounded-xl ">
+        <thead>
+            <tr class="bg-gray-50">
+                <th scope="col" class="  text-center text-sm leading-2  text-gray-900 capitalize rounded-t-xl">  id </th>
 
-                            <th scope="col" class="  text-center text-sm leading-2  text-gray-900 capitalize rounded-t-xl"> اسم المستخدم </th>
+                <th scope="col" class="  text-center text-sm leading-2  text-gray-900 capitalize rounded-t-xl"> اسم المستخدم </th>
 
-                              <th scope="col" class="  text-center text-sm leading-2  text-gray-900 capitalize rounded-t-xl"> الإميل  </th>
-                              <th scope="col" class="  text-center text-sm leading-2  text-gray-900 capitalize">صلاحية النشر</th>
+                <th scope="col" class="  text-center text-sm leading-2  text-gray-900 capitalize rounded-t-xl"> الإميل  </th>
+                <th scope="col" class="  text-center text-sm leading-2  text-gray-900 capitalize">صلاحية النشر</th>
 
 
 
-                            </tr>
-                      </thead>
+            </tr>
+        </thead>
+        @forelse ($users as $user)
                       <tbody class="divide-y divide-gray-300 ">
                           <tr class="bg-white transition-all duration-500 ">
 
@@ -38,7 +38,8 @@
                                     @endif value="admin2">مشرف</option>
 
                                 </select>
-                                <button class=" absolute left-0  bottom-12 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 md:px-4  md:py-2 rounded">
+
+                                    <button class=" absolute left-0  bottom-12 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 md:px-4  md:py-2 rounded">
                                     تغير الصلاحية
                                   </button>
 
