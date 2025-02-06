@@ -39,7 +39,9 @@ public function  show($id){
   $posts=Post::find($id);
 
 $sums= Like::where('post_id',$id)->sum('print_like');
-$comment=Comment::where('post_id',$id)->with('user')->get();
+$comment = Comment::where('post_id', $id)
+                  ->with('user')
+                  ->paginate(10);
   return view('posts.show',['posts'=>$posts,'like'=>$sums,'comment'=>$comment]);
 }
 }

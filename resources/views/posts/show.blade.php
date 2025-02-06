@@ -36,10 +36,10 @@
         @endauth
 
 
-    @if($posts->imgart!=NULL)
+
     <img class=" mx-auto  place-content-center " style="min-height: 450px; "
-     width="800px" src="{{url('book/'.$posts->imgart.'')}}">
- @endif
+     width="800px" src="{{$posts->imgart ? url('book/'.$posts->imgart.'') : url('OSK.jpeg')}}">
+
 
   </div>
   <div class="max-w-3xl mx-auto border ">
@@ -144,12 +144,14 @@
             </form>
             </div>
 
+
             <button onclick="comm()" type="button" class=" ml-5 py-2.5 px-5   text-sm font-medium text-gray-900 focus:outline-none bg-white border  rounded-full  border-gray-200  hover:bg-gray-100 hover:rounded-x-lg focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 9h5m3 0h2M7 12h2m3 0h5M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.616a1 1 0 0 0-.67.257l-2.88 2.592A.5.5 0 0 1 8 18.477V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
-              </svg>
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 9h5m3 0h2M7 12h2m3 0h5M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-6.616a1 1 0 0 0-.67.257l-2.88 2.592A.5.5 0 0 1 8 18.477V17a1 1 0 0 0-1-1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z"/>
+                </svg>
 
             </button>
+
 
         </form>
 
@@ -217,7 +219,7 @@ style="display:none"
 
                 <div class="p-3">
                     <div class="flex gap-3 items-center">
-                        <img src="https://th.bing.com/th/id/R.8e2c571ff125b3531705198a15d3103c?rik=gzhbzBpXBa%2bxMA&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fuser-png-icon-big-image-png-2240.png&ehk=VeWsrun%2fvDy5QDv2Z6Xm8XnIMXyeaz2fhR3AgxlvxAc%3d&risl=&pid=ImgRaw&r=0"
+                        <img src="{{$com->user->img ? url('img/'.$com->user->img.'') : url('R.png')}}"
                                 class="object-cover w-10 h-10 rounded-full border-2 border-emerald-400  shadow-emerald-400">
                         <h3 class="font-bold">
                             {{$com->user->name}}
@@ -233,6 +235,7 @@ style="display:none"
             </div>
         </div>
         @endforeach
+        {{$comment->links()}}
     </div>
     </div>
 

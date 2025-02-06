@@ -19,6 +19,9 @@
             </tr>
         </thead>
         @forelse ($users as $user)
+        @if($user->usertype=="admin")
+        @continue
+        @endif
                       <tbody class="divide-y divide-gray-300 ">
                           <tr class="bg-white transition-all duration-500 ">
 

@@ -89,8 +89,8 @@
                     <div class="relative">
                         <a href="{{ Route('posts.show', $item->id) }}">
                             <img class="w-full h-40 border border-t-bro"
-                                src="@if ($item->imgart != null) {{ url('book/' . $item->imgart . '') }}
-                     @else https://th.bing.com/th/id/OSK.HEROQpKkwDXfPIzn7s1ZoMWhLTgfsO0PydmZWDLKMTvEmwk?rs=1&pid=ImgDetMain @endif"
+                                src=" {{($item->imgart != null) ?  url('book/' . $item->imgart . '')
+                     : url('OSK.jpeg') }}"
                                 alt="Sunset in the mountains">
                             <div
                                 class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 hover:bg-gray-900 hover:opacity-25">
@@ -138,23 +138,8 @@
                             <span class="ml-1">{{ $comm->where('post_id', $item->id)->count() }}</span>
                         </span>
                     </div>
-                    
-                    @if ($comment)
-                        {{-- <p>{{ $item->comment }}</p> --}}
-                        @foreach ($comment as $comment)
-                            @if ($comment->post_id == $item->id)
-                                <div class="px-6 py-4">
-                                    {{-- <div class="font-bold text-xl mb-2">{{ $comment->name }}</div> --}}
-                                <strong>
-                                    <span>{{ $comment->created_at->diffForHumans() }}</span>
-                                </strong>
-                                    <p class="text-gray-700 text-base">
-                                        {{ $comment->comment }}
-                                    </p>
-                                </div>
-                            @endif                            
-                        @endforeach
-                    @endif
+
+
                 </div>
             @endforeach
         </div>

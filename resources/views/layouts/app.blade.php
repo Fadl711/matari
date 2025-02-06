@@ -12,6 +12,8 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
+        <link href="{{ asset('css/tailwind.css') }}" rel="stylesheet">
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
@@ -24,15 +26,16 @@
 
             <!-- Page Content -->
             <main>
+                @if(!Request::is('profile'))
                 @auth
                 @if (Auth::user()->usertype=='admin')
 
                 @include('posts.show_users')
                 @else
-                {{$slot}}
-                    @endif
+                @endif
                 @endauth
-
+                @endif
+                {{$slot}}
             </main>
         </div>
     </body>

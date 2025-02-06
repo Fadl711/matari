@@ -11,6 +11,8 @@
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
 />
+@vite(['resources/css/app.css', 'resources/js/app.js'])
+
 <link href="{{ asset('css/tailwind.css') }}" rel="stylesheet">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>

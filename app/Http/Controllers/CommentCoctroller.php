@@ -16,13 +16,14 @@ class CommentCoctroller extends Controller
 
 
     public function comment(Request $request,$id){
-        
+
         $user_id=$request->user_id;
 
     $comment=$request->comment;
     Comment::create([
         'comment'=>$comment,
-        'post_id'=>$id
+        'post_id'=>$id,
+        'user_id'=>$user_id,
     ]);
     session()->forget('comment_text');
     // dd($rr->print_like);

@@ -35,11 +35,20 @@ class RegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
-
+        if (isset($request->img)) {
+            $file_i =  $request->img->getClientOriginalExtension();
+            $imgfile = time() . '.' . $file_i;
+            $path = "img";
+            $request->img->move($path, $imgfile);
+          }else {
+            // إذا لم تكن الصورة موجودة، تعيين قيمة null
+            $imgfile = null;
+        }
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'img'=>$imgfile ,
         ]);
 
         event(new Registered($user));
@@ -47,7 +56,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
         $redirectUrl  =session('redirect_to');
         session(['comment_text' => session('comment_text')]);
-        return redirect($redirectUrl);
+        return redirect("/");
 
     }
 }
