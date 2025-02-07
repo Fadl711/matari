@@ -25,6 +25,7 @@
         <h1 class="text-bro text-3xl">رواق العلوم الشرعية </h1>
         <p class="">د. محمد بن علي بن جميل المطري</p>
     </div>
+
     <div class="md:container md:mx-10 mx-0 flex-1">
         <main>
             @yield('content')

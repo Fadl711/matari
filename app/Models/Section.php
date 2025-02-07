@@ -10,12 +10,15 @@ class Section extends Model
     use HasFactory;
     protected $fillable = [
         'section_Name',
-     
-       
+
+
     ];
     protected function getTitleAttribute(){
 
         return $this->section_Name;
+    }
+    public function posts(){
+        return $this->hasMany(Post::class, 'idsection');
     }
 }
 

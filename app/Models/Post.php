@@ -33,5 +33,8 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+    public function section(){
+        return $this->belongsTo(Section::class, 'idsection');
+    }
 
 }

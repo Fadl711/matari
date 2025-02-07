@@ -1,5 +1,33 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}"  enctype="multipart/form-data">
+    <script>
+        // بدء الجلسة لمدة 30 ثانية
+        let sessionTimer = setTimeout(() => {
+            alert('انتهت الجلسة، يرجى إعادة المحاولة.');
+            window.location.reload();
+        }, 30000);
+
+        function cancelTimer() {
+            clearTimeout(sessionTimer);
+        }
+
+        function validateForm(event) {
+            const imgInput = document.getElementById('example1');
+
+            if (imgInput.files.length > 0) {
+                const fileSize = imgInput.files[0].size / 1024;
+
+                if (fileSize > 800) {
+                    alert('حجم الصورة كبير جدًا. الحد الأقصى المسموح به هو 800 كيلو بايت.');
+                    event.preventDefault();
+                    return false;
+                }
+            }
+
+            return true; // إذا كان كل شيء صحيحًا
+        }
+    </script>
+
+    <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data" onsubmit="return validateForm(event) && cancelTimer()">
         @csrf
 
         <!-- Name -->

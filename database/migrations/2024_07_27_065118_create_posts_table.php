@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('fileAud')->nullable();
             $table->string('link_video')->nullable();
             $table->string('books')->nullable();
-            $table->integer('idsection');
+            $table->foreignId('idsection');
             $table->integer('userid');
             $table->integer('teypsection');
-
+            $table->foreign('idsection')->references('id')->on('sections');
             $table->timestamps();
         });
     }

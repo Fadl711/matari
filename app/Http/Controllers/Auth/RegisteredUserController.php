@@ -32,8 +32,9 @@ class RegisteredUserController extends Controller
 
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'img' => ['nullable', 'image', 'max:800'],
         ]);
         if (isset($request->img)) {
             $file_i =  $request->img->getClientOriginalExtension();

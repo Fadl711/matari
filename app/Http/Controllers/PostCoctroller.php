@@ -47,27 +47,13 @@ class PostCoctroller extends Controller
       $request->fileVid->move($path, $file_Vid);
       $data->fileVid = $file_Vid;
     } else if (isset($request->link_video)) {
-      function getTextBetweenWords($text, $startWord, $endWord)
-      {
-        $startPos = strpos($text, $startWord);
-        if ($startPos === false) {
-          return ''; // الكلمة البداية غير موجودة
-        }
-        $startPos += strlen($startWord); // تجاوز الكلمة البداية
 
-        $endPos = strpos($text, $endWord, $startPos);
-        if ($endPos === false) {
-          return ''; // الكلمة النهاية غير موجودة
-        }
-
-        $length = $endPos - $startPos;
-        return substr($text, $startPos, $length);
-      }
       $text = $request->link_video;
       $startWord = 'e/';
       $endWord = '?s';
+        $rr = new GeTextController();
 
-      $result = getTextBetweenWords($text, $startWord, $endWord);
+      $result = $rr->getTextBetweenWords($text, $startWord, $endWord);
       $data->link_video = $result;
     }
 
@@ -152,27 +138,15 @@ class PostCoctroller extends Controller
         'fileVid' => $file_Vid,
       ]);
     } else if (isset($request->link_video)) {
-      function getTextBetweenWords($text, $startWord, $endWord)
-      {
-        $startPos = strpos($text, $startWord);
-        if ($startPos === false) {
-          return ''; // الكلمة البداية غير موجودة
-        }
-        $startPos += strlen($startWord); // تجاوز الكلمة البداية
 
-        $endPos = strpos($text, $endWord, $startPos);
-        if ($endPos === false) {
-          return ''; // الكلمة النهاية غير موجودة
-        }
-
-        $length = $endPos - $startPos;
-        return substr($text, $startPos, $length);
-      }
       $text = $request->link_video;
       $startWord = 'e/';
       $endWord = '?s';
 
-      $result = getTextBetweenWords($text, $startWord, $endWord);
+      $rr = new GeTextController();
+
+      $result = $rr->getTextBetweenWords($text, $startWord, $endWord);
+
       $data->update([
         'link_video' => $result,
       ]);

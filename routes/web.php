@@ -9,12 +9,14 @@ use App\Http\Controllers\PostCoctroller;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SectionController;
 
+
+
+Route::get('/',[SectionController::class,'welcome'])->name('posts.welcome');
 //اضافة لايك للمشنور
 Route::post('/likes/{like}/store',[CommentCoctroller::class,'likes'])->name('store.like')->middleware('auth');
 //اضافة تعليق
 Route::post('/comments/{comment}',[CommentCoctroller::class,'comment'])->name('store.comment')->middleware('auth.redirect');
 
-Route::get('/',[SectionController::class,'welcome'])->name('posts.welcome');
 //اظهار جميع المنشورات
 Route::get('/posts/{post}/show_all',[SectionController::class,'show_all'])->name('posts.show_all');
 //اظهار المنشور فقط
