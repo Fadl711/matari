@@ -38,7 +38,7 @@
 
 
     <img class=" mx-auto  place-content-center " style="min-height: 450px; "
-     width="800px" src="{{$posts->imgart ? url('book/'.$posts->imgart.'') : url('OSK.jpeg')}}">
+     width="800px" src="{{($posts->imgart!=null) ? url('book/'.$posts->imgart.'') : url('OSK.jpeg')}}">
 
 
   </div>
@@ -172,14 +172,14 @@
           @endauth
 
   </div>
-  @php
+{{--   @php
     $commentText = session('comment_text');
-@endphp
-  <div  id="comment" @if($commentText)
-  style="display:block"
-@else
+@endphp --}}
+  <div  id="comment" {{-- @if($commentText) --}}
+{{--   style="display:block"
+@else --}}
 style="display:none"
-  @endif  class="w-full bg-white rounded-lg border p-1 md:p-3 m-10 overflow-y-scroll ">
+ {{--  @endif --}}  class="w-full bg-white rounded-lg border p-1 md:p-3 m-10 overflow-y-scroll ">
     <h3 class="font-semibold p-1">أضف تعليق</h3>
 
     <label for="chat" class="sr-only">Your message</label>
@@ -260,9 +260,9 @@ style="display:none"
     }
     }
 
-    window.onload = function() {
+/*     window.onload = function() {
         document.getElementById('comment_input').focus();
-    };
+    }; */
     </script>
 
 @endsection
