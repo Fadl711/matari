@@ -17,6 +17,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <title>@yield('title')</title>
+@yield('script')
+
 </head>
 <body class="flex flex-col min-h-screen">
     @include('includes.nav')

@@ -7,6 +7,9 @@
 
 
 <div id="showbo " style="display: block">
+    <div id="onti">
+
+    </div>
 <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 relative ">
 
   <h1 class=" underline underline-offset-4 font-medium text-center my-2" name="post_id">{{$posts->id}} </h1>
@@ -185,7 +188,7 @@ style="display:none"
     <label for="chat" class="sr-only">Your message</label>
     <div class="flex items-center px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-700">
 
-
+        
         <textarea name="comment" id="comment_input" rows="2" cols="2" class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="رسالتك...">{{ session('comment_text') }}</textarea>
             <button type="submit" class="inline-flex justify-center p-2 text-blue-600 rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600">
             <svg class="w-5 h-5 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
@@ -211,7 +214,7 @@ style="display:none"
 
         <!-- Comment Container -->
 
-        <div class="overflow-y-scroll h-96">
+        <div class="overflow-y-scroll h-96" >
         @foreach ($comment as $com)
 
         <div class="border border-r-emerald-500">
@@ -265,6 +268,17 @@ style="display:none"
     }; */
     </script>
 
+@endsection
+@section('script')
+<script type="module">
+    window.Echo.channel(`comments`)
+        .listen('create', (e) => {
+            console.log(e); // طباعة بيانات الحدث في الكونسول
+var commentText = document.getElementById('onti');
+commentText.insertAdjacentHTML('beforeend','<div class="alert-success">'+e.comment+'</div>')
+    
+        });
+    </script>
 @endsection
 
 

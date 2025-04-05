@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\AddComment;
 use App\Models\Comment;
 use App\Models\Like;
 use App\Models\Post;
@@ -18,26 +19,29 @@ class CommentCoctroller extends Controller
     public function comment(Request $request,$id){
 
         $user_id=$request->user_id;
-
-    $comment=$request->comment;
-    Comment::create([
-        'comment'=>$comment,
+        $validated = $request->validate([
+            'comment' => 'required|string|max:255',
+        ]);
+    // $comment=$request->comment;
+    $comment= Comment::create([
+        'comment'=>$validated['comment'],
         'post_id'=>$id,
         'user_id'=>$user_id,
     ]);
-    session()->forget('comment_text');
-    // dd($rr->print_like);
-    return to_route('posts.show',$id);
-
-
-
-
-
-
-
+    event(new AddComment($comment));
+ 
+    // return response()->json([
+    //     'success' => true,
+    //     'comment' => $comment,
+    //     'message' => 'Comment added successfully'
+    // ], 201);   
+     return  redirect()->back();
+ 
       }
 
-
+    // session()->forget('comment_text');
+    // dd($rr->print_like);
+    // return to_route('posts.show',$id);
 
     public function likes(Request $request, $id){
      $user_id=$request->user_id;
