@@ -269,15 +269,19 @@ style="display:none"
     </script>
 
 @endsection
+<div id="onti"></div>
 @section('script')
 <script type="module">
-    window.Echo.channel(`comments`)
-        .listen('create', (e) => {
+    setTimeout(() => {
+        window.Echo.channel(`comments`)
+        .listen('comment', (e) => {
             console.log(e); // طباعة بيانات الحدث في الكونسول
 var commentText = document.getElementById('onti');
 commentText.insertAdjacentHTML('beforeend','<div class="alert-success">'+e.comment+'</div>')
     
         });
+    }, 500);
+  
     </script>
 @endsection
 
